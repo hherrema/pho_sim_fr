@@ -1,0 +1,14 @@
+# csv files too large
+analyses/dataframes/nde_data.csv
+analyses/dataframes/nse_data.csv
+analyses/dataframes/nde_errors.csv
+analyses/dataframes/nse_errors.csv
+
+# temporary directories
+analyses/temp/
+
+# word2vec model
+semantic_similarity/GoogleNews-vectors-negative300.bin.gz
+
+# OS generated files
+.DS_store
