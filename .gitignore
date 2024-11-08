@@ -1,9 +1,7 @@
 # csv files too large
 analyses/dataframes/
-analyses/dataframes_eeg/
-
-# temporary directories
-analyses/temp/
+statistics/dataframes/
+archive/intracranial/dataframes/
 
 # parralel logs
 logs/
@@ -11,7 +9,9 @@ logs/
 # word2vec model
 semantic_similarity/GoogleNews-vectors-negative300.bin.gz
 semantic_similarity/semantic_cml.csv
-semantic_similarity/
 
 # OS generated files
 .DS_store
+
+# jupyter notebook checkpoints
+.ipynb_checkpoints

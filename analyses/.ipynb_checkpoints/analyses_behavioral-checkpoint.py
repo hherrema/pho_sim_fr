@@ -783,7 +783,7 @@ def psim_crl_parallel_v1(sub, exp, sess, loc, mont):
     return psim_crl_df
 
 def psim_crl_sess_avg_v1(psim_crl_v1_data_at):
-    psim_crl_v1_data = psim_crl_v1_data_at.groupby(['subject', 'exp_type', 'experiment', 'session', 'localization', 'lag', 'psim'])[['crl', 'log_crl']].mean().reset_index()
+    psim_crl_v1_data = psim_crl_v1_data_at.groupby(['subject', 'exp_type', 'experiment', 'session', 'localization', 'montage', 'lag', 'psim'])[['crl', 'log_crl']].mean().reset_index()
     psim_crl_v1_data['abs_lag'] = psim_crl_v1_data['lag'].abs()
     
     return psim_crl_v1_data
