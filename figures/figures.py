@@ -127,13 +127,13 @@ def plot_psim_intr_l(psim_intr_l_data_bsa, metric):
     if metric == 'H':
         palette1 = [colors[0], 'lightgray', colors[1], 'darkgray']
         palette2 ='Blues_d'
-        yb1 = 0.06; yt1 = 0.12
-        yb2 = -0.005; yt2 = 0.03
+        yb1 = 0.06; yt1 = 0.125
+        yb2 = -0.002; yt2 = 0.025
     elif metric == 'J':
         palette1 = [colors[2], 'lightgray', colors[3], 'darkgray']
         palette2 = 'Greens_d'
         yb1 = 0.1; yt1 = 0.115
-        yb2 = -0.001; yt2 = 0.012
+        yb2 = -0.001; yt2 = 0.01
     else:
         raise ValueError(f'{metric} not a valid metric')
         
@@ -142,7 +142,7 @@ def plot_psim_intr_l(psim_intr_l_data_bsa, metric):
                   value_vars=['pli_psim', 'pli_control', 'pli_delta', 'eli_psim', 'eli_control', 'eli_delta'],
                   var_name='intr_type', value_name='psim')
 
-    fig, ax = plt.subplots(1, 2, figsize=(7, 4), width_ratios=[2, 1])
+    fig, ax = plt.subplots(1, 2, figsize=(7, 4), width_ratios=[2.3, 1])
 
     # raw scores
     sns.barplot(dfm, x='experiment', y='psim', hue='intr_type', hue_order=['pli_psim', 'pli_control', 'eli_psim', 'eli_control'], palette=palette1, 
@@ -154,22 +154,32 @@ def plot_psim_intr_l(psim_intr_l_data_bsa, metric):
     ax[1].axhline(0, color='black', linestyle='dotted')
 
     ax[0].spines[['right', 'top']].set_visible(False)
-    ax[0].set(xlabel='', ylabel='Mean Phonological Similarity', ylim=(yb1, yt1))
+    ax[0].set_xlabel('')
+    ax[0].set_ylabel('Mean Phonological Similarity', fontsize=14, labelpad=10)
+    ax[0].set_ylim(yb1, yt1)
+    #ax[0].set(xlabel='', ylabel='Mean Phonological Similarity', ylim=(yb1, yt1))
     ax[0].set_xticks([])
+    ax[0].tick_params(axis='y', labelsize=14)
 
     labels=['PLI', 'PLI Control', 'ELI', 'ELI Control']
     handles, _ = ax[0].get_legend_handles_labels()
-    ax[0].legend(handles, labels, title='', shadow=True, ncols=2, loc='upper center', bbox_to_anchor=(0.5, 1.05))
+    ax[0].legend(handles, labels, title='', fontsize=13, shadow=True, ncols=2, loc='upper center', bbox_to_anchor=(0.54, 1.05),
+                 handlelength=1.1, handletextpad=0.5, columnspacing=1.2)
 
     ax[1].spines[['right', 'top']].set_visible(False)
-    ax[1].set(xlabel='', ylabel='Difference in Phonological Similarity\n(Observed - Control)', ylim=(yb2, yt2))
+    ax[1].set_xlabel('')
+    ax[1].set_ylabel('Difference in Phonological Similarity\n(Observed - Control)', fontsize=14, labelpad=5)
+    ax[1].set_ylim(yb2, yt2)
+    #ax[1].set(xlabel='', ylabel='Difference in Phonological Similarity\n(Observed - Control)', ylim=(yb2, yt2))
     ax[1].set_xticks([])
-
+    ax[1].tick_params(axis='y', labelsize=14)
+    
     labels=['PLI Delta', 'ELI Delta']
     handles, _ = ax[1].get_legend_handles_labels()
-    ax[1].legend(handles, labels, title='', shadow=True, ncols=1, loc='upper center', bbox_to_anchor=(0.5, 1.05))
+    ax[1].legend(handles, labels, title='', fontsize=13, shadow=True, ncols=1, loc='upper center', bbox_to_anchor=(0.57, 1.05),
+                 handletextpad=0)
 
-    plt.tight_layout()
+    plt.tight_layout(w_pad=3)
     plt.savefig(f'figures/gallery/psim_intr_l_{metric}.pdf', bbox_inches='tight')
     plt.show()
     
@@ -184,12 +194,12 @@ def plot_psim_intr_r(psim_intr_r_data_bsa, metric):
     elif metric == 'J':
         palette1 = ['silver', 'black', colors[2], colors[3]]
         palette2 = ['black', colors[2], colors[3]]
-        yb1 = 0.1; yt1 = 0.125
-        yb2 = -0.01; yt2 = 0.02
+        yb1 = 0.1; yt1 = 0.124
+        yb2 = -0.005; yt2 = 0.02
     else:
         raise ValueError(f'{metric} not a valid metric')
         
-    fig, ax = plt.subplots(1, 2, figsize=(7, 4), width_ratios=[4, 3])
+    fig, ax = plt.subplots(1, 2, figsize=(7, 4), width_ratios=[1.8, 1])
     
     sns.barplot(psim_intr_r_data_bsa, x='experiment', y='psim', hue='resp_type', hue_order=['control', 'cr', 'pli', 'eli'], 
                 palette=palette1, errorbar=('se', 1.96), gap=0.1, ax=ax[0])
@@ -199,22 +209,32 @@ def plot_psim_intr_r(psim_intr_r_data_bsa, metric):
     ax[1].axhline(0, color='black', linestyle='dotted')
     
     ax[0].spines[['right', 'top']].set_visible(False)
-    ax[0].set(xlabel='', ylabel='Phonological Similarity', ylim=(yb1, yt1))
+    #ax[0].set(xlabel='', ylabel='Phonological Similarity', ylim=(yb1, yt1))
+    ax[0].set_xlabel('')
+    ax[0].set_ylabel('Phonological Similarity', fontsize=14, labelpad=10)
+    ax[0].set_ylim(yb1, yt1)
     ax[0].set_xticks([])
+    ax[0].tick_params(axis='y', labelsize=14)
     
     labels = ['Control', 'Correct Recall', 'PLI', 'ELI']
     handles, _ = ax[0].get_legend_handles_labels()
-    ax[0].legend(handles, labels, title='', shadow=True, ncols=2, loc='upper center', bbox_to_anchor=(0.5, 1.05))
+    ax[0].legend(handles, labels, title='', fontsize=13, shadow=True, ncols=2, loc='upper center', bbox_to_anchor=(0.52, 1.05),
+                 handlelength=1.1, handletextpad=0.5, columnspacing=1.2)
     
     ax[1].spines[['right', 'top']].set_visible(False)
-    ax[1].set(xlabel='', ylabel='Difference in Phonological Similarity\n(Observed - Control)', ylim=(yb2, yt2))
+    #ax[1].set(xlabel='', ylabel='Difference in Phonological Similarity\n(Observed - Control)', ylim=(yb2, yt2))
+    ax[1].set_xlabel('')
+    ax[1].set_ylabel('Difference in Phonological Similarity\n(Observed - Control)', fontsize=14, labelpad=5)
+    ax[1].set_ylim(yb2, yt2)
     ax[1].set_xticks([])
+    ax[1].tick_params(axis='y', labelsize=14)
     
     labels=['CR Delta', 'PLI Delta', 'ELI Delta']
     handles, _ = ax[1].get_legend_handles_labels()
-    ax[1].legend(handles, labels, title='', shadow=True, ncols=1, loc='upper center', bbox_to_anchor=(0.5, 1.05))
+    ax[1].legend(handles, labels, title='', fontsize=13, shadow=True, ncols=1, loc='upper center', bbox_to_anchor=(0.5, 1.06),
+                 handletextpad=0)
     
-    plt.tight_layout()
+    plt.tight_layout(w_pad=3)
     plt.savefig(f'figures/gallery/psim_intr_r_{metric}.pdf', bbox_inches='tight')
     plt.show()
     
@@ -309,12 +329,15 @@ def plot_psim_crl_lm(psim_crl_H_data_tr, psim_crl_H_data_bsa):
     ax.errorbar(x=np.arange(1, 8), y=crl_mu.query("psim == 0 and lag > 0 and lag <= 7").crl, yerr=lm.query("psim == 0 and lag > 0 and lag <= 7").ci, marker='o', ms=5, color='gray', label='Not Phonologically Similar')
 
     ax.spines[['right', 'top']].set_visible(False)
-    ax.set(xlabel='Lag', ylabel='Inter-Response Time (ms)')
+    ax.set_xlabel('Lag', fontsize=15, labelpad=10)
+    ax.set_ylabel('Inter-Response Time (ms)', fontsize=15, labelpad=10)
+    #ax.set(xlabel='Lag', ylabel='Inter-Response Time (ms)')
     #ax.set(xlabel='Lag', ylabel='Conditional Response Latency (ms)')
+    ax.tick_params(axis='both', labelsize=14)
 
     labels = ['Phonologically Similar', 'Not Phonologically Similar']
     handles, _ = ax.get_legend_handles_labels()
-    ax.legend(handles, labels, title='', shadow=True, ncols=1, loc='upper right')
+    ax.legend(handles, labels, title='', fontsize=13, shadow=True, ncols=1, loc='upper right', bbox_to_anchor=(0.98, 1.03))
 
     plt.savefig('figures/gallery/psim_crl.pdf', bbox_inches='tight')
     plt.show()
@@ -343,7 +366,10 @@ def plot_psim_irt_lm(psim_irt_J_data_tr, psim_irt_J_data_bsa):
     ax.errorbar(x=np.arange(0, 6), y=irt_mu.irt, yerr=lm.ci, color='forestgreen', marker='o', ms=5)
 
     ax.spines[['right', 'top']].set_visible(False)
-    ax.set(xlabel='Phonological Similarity Bin', ylabel='Inter-Response Time (ms)')
+    ax.set_xlabel('Phonological Similarity Bin', fontsize=15, labelpad=10)
+    ax.set_ylabel('Inter-Response Time (ms)', fontsize=15, labelpad=10)
+    #ax.set(xlabel='Phonological Similarity Bin', ylabel='Inter-Response Time (ms)')
+    ax.tick_params(axis='both', labelsize=14)
 
     plt.savefig('figures/gallery/psim_irt.pdf', bbox_inches='tight')
     plt.show()
@@ -395,9 +421,14 @@ def plot_crl_psim_lag_H(psim_crl_H_pred):
     ax.errorbar(x=np.arange(1, 24), y=log_crl_mu.query('psim == 0').log_crl_pred, yerr=lm.query("psim == 0").ci, color='gray', marker='o', ms=5, label='Not Phonologically Similar')
 
     ax.spines[['right', 'top']].set_visible(False)
-    ax.set(xlabel='Absolute Lag', ylabel='Predicted ln(IRT)')
+    ax.set_xlabel('Absolute Lag', fontsize=14, labelpad=5)
+    ax.set_ylabel('Predictide ln(IRT)', fontsize=14, labelpad=5)
+    ax.set_ylim(7.15, 8.35)
+    #ax.set(xlabel='Absolute Lag', ylabel='Predicted ln(IRT)')
     #ax.set(xlabel='Absolute Lag', ylabel='Predicted ln(CRL)')
-    ax.legend(shadow=True, loc='upper left', bbox_to_anchor=(0, 1.1))
+    ax.tick_params(axis='both', labelsize=14)
+    ax.legend(fontsize=12, shadow=True, loc='upper left', bbox_to_anchor=(0, 1.08),
+              handlelength=1.1, handletextpad=0.5)
     plt.savefig('figures/gallery/crl_psim_lag_H.pdf', bbox_inches='tight')
     plt.show()
 
@@ -444,8 +475,13 @@ def plot_irt_psim_lag_J(psim_irt_J_pred):
     """
 
     ax.spines[['right', 'top']].set_visible(False)
-    ax.set(xlabel='Absolute Lag', ylabel='Predicted ln(IRT)')
-    ax.legend(title='Phonological Similarity Bin', shadow=True, ncols=3, loc='upper left', bbox_to_anchor=(0, 1.1))
+    ax.set_xlabel('Absolute Lag', fontsize=14, labelpad=5)
+    ax.set_ylabel('Predicted ln(IRT)', fontsize=14, labelpad=5)
+    ax.set_ylim(7.15, 8.35)
+    #ax.set(xlabel='Absolute Lag', ylabel='Predicted ln(IRT)')
+    ax.tick_params(axis='both', labelsize=14)
+    ax.legend(title='Phonological Similarity Bin', title_fontsize=12, fontsize=12, shadow=True, ncols=3, loc='upper left', bbox_to_anchor=(0, 1.08),
+              handlelength=1.5, handletextpad=0.5)
     plt.savefig('figures/gallery/irt_psim_lag_J.pdf', bbox_inches='tight')
     plt.show()
 
@@ -494,7 +530,12 @@ def plot_irt_psim_ssim_J(psim_irt_J_pred):
     """
 
     ax.spines[['right', 'top']].set_visible(False)
-    ax.set(xlabel='Semantic Similarity Bin', ylabel='Predicted ln(IRT)')
-    ax.legend(title='Phonological Similarity Bin', shadow=True, ncols=3, loc='upper right', bbox_to_anchor=(1, 1))
+    ax.set_xlabel('Semantic Similarity Bin', fontsize=14, labelpad=5)
+    ax.set_ylabel('Predicted ln(IRT)', fontsize=14, labelpad=5)
+    #ax.set(xlabel='Semantic Similarity Bin', ylabel='Predicted ln(IRT)')
+    ax.set_xticks(np.arange(6))
+    ax.tick_params(axis='both', labelsize=14)
+    ax.legend(title='Phonological Similarity Bin', title_fontsize=12, fontsize=12, shadow=True, ncols=3, loc='upper right', bbox_to_anchor=(1, 1.05),
+              handlelength=1.5, handletextpad=0.5)
     plt.savefig('figures/gallery/irt_psim_ssim_J.pdf', bbox_inches='tight')
     plt.show()
